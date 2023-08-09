@@ -22,7 +22,8 @@ export enum ACTION_BUTTONS {
   MARK_AS_PENDING,
   RESPOND_TO_ISSUE,
   FIX_ISSUE,
-  DELETE_ISSUE
+  DELETE_ISSUE,
+  DUPLICATE_ISSUE
 }
 
 @Component({
@@ -72,6 +73,20 @@ export class IssueTablesComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.issues.loadIssues();
     });
+  }
+
+  duplicateIssue(issue: Issue, event: Event): void {
+    const duplicatedIssue = { ...issue }; // Create a copy of the issue
+
+    duplicatedIssue.title += ' (Copy)'; // Modify the title to indicate it's a copy
+
+    this.issueService.createIssue(
+      duplicatedIssue.title,
+      duplicatedIssue.description,
+      duplicatedIssue.severity,
+      duplicatedIssue.type);
+
+    event.stopPropagation(); // Stop the event from propagating further
   }
 
   /**
