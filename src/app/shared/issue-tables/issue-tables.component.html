@@ -180,6 +180,16 @@
     <mat-cell *matCellDef="let issue">
       <button
         mat-button
+        color="primary"
+        *ngIf="this.isActionVisible(action_buttons.DUPLICATE_ISSUE)"
+        (click)="duplicateIssue(issue, $event)"
+        style="transform: scale(0.8)"
+        matTooltip="Duplicate this issue"
+      >
+        <mat-icon>file_copy</mat-icon>
+      </button>
+      <button
+        mat-button
         matTooltip="View this issue on GitHub"
         *ngIf="this.isActionVisible(action_buttons.VIEW_IN_WEB)"
         (click)="this.viewIssueInBrowser(issue.id, $event)"
